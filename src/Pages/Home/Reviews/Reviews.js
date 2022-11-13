@@ -30,7 +30,7 @@ const reviews = [
 
 const Reviews = () => {
   return (
-    <div className=" mt-28">
+    <div className=" mt-28 mb-36">
       <div className="flex justify-between items-center mb-16">
         <div>
           <h4 className="text-xl text-primary font-bold">Testimonial</h4>
