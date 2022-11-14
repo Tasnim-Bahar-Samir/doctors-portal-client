@@ -1,34 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
+  const handleLogin = (data)=>{
+    console.log(data)
+  }
   return (
     <div className="flex h-[600px] items-center justify-center ">
       <div className="w-96 shadow-xl p-6 rounded-xl">
         <h3 className="text-2xl text-center mb-7">Login</h3>
-        <form className="w-full" onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+        <form className="w-full" onSubmit={handleSubmit(handleLogin)}>
           <div className="form-control w-full ">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
             <input
-              {...register("email", { required: true })}
+              {...register("email", { required: "Email Address is required" })}
               type="text"
               className="input input-bordered w-full"
+              aria-invalid={errors.email ? "true" : "false"} 
             />
+            {errors.email && <p className="text-red-600" role="alert">{errors.email?.message}</p>}
           </div>
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
             <input
-              {...register("password", { required: true })}
+              {...register("password", { required: "Password is required" })}
               type="password"
-              className="input input-bordered w-full "
+              className="input input-bordered w-full"
+              aria-invalid={errors.password ? "true" : "false"} 
             />
+            {errors.password && <p className="text-red-600" role="alert">{errors.password?.message}</p>}
           </div>
           <p>Forgot Password ?</p>
           <input className="btn btn-accent w-full mt-4" type="submit" />
