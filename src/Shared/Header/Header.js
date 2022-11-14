@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { authProvider } from "../../Contexts/Authcontext";
 
 const Header = () => {
+  const {user} = useContext(authProvider)
     const menuItem = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/about'>About</Link></li>
         <li><Link to='/appointment'>Appointment</Link></li>
         <li><Link>Reviews</Link></li>
         <li><Link>Contact Us</Link></li>
+        <li><Link>{user?.name}</Link></li>
     </>
   return (
     <div className="navbar bg-base-100 px-12">
