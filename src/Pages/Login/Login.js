@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authProvider } from "../../Contexts/Authcontext";
 
 const Login = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
-  const {userLogin,user} = useContext(authProvider)
+  const {userLogin} = useContext(authProvider)
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/';
+  const navigate = useNavigate()
   const handleLogin = (data)=>{
     const {email,password} = data;
     userLogin(email,password)
     .then(result => {
       console.log(result.user)
+      navigate(from,{replace:true})
     })
     .then(err => console.error(err))
     }
@@ -44,7 +48,7 @@ const Login = () => {
             {errors.password && <p className="text-red-600" role="alert">{errors.password?.message}</p>}
           </div>
           <p>Forgot Password ?</p>
-          <input className="btn btn-accent w-full mt-4" type="submit" />
+          <button type="submit" className="btn btn-accent w-full mt-4">Login</button>
           <p className="text-center text-sm mt-[6px]">New to Doctors Portal?<Link to='/register' className="text-secondary">Create new account</Link></p>
         </form>
         <div className="divider">OR</div>

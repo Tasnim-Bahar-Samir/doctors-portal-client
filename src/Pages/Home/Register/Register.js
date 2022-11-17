@@ -1,17 +1,27 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { authProvider } from '../../../Contexts/Authcontext';
 
 const Register = () => {
-  const {createUser}= useContext(authProvider)
+  const {createUser,userUpdate}= useContext(authProvider)
     const {register, formState:{errors}, handleSubmit} = useForm();
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.from?.state?.pathname || '/';
     const handleRegister = data=>{
         const {name,email,password} = data;
-        console.log(email,password)
+        console.log(email,password,name)
         createUser(email,password)
         .then(result => {
           console.log(result.user)
+          const userInfo = {
+            displayName : name
+          }
+          userUpdate(userInfo)
+          .then(() =>{})
+          .catch(err => console.error(err))
+          navigate(from,{replace:true})
         } )
         .then(err => console.error(err))
     }
@@ -56,7 +66,8 @@ const Register = () => {
             />
             {errors.password && <p className="text-red-600" role="alert">{errors.password?.message}</p>}
           </div>
-          <input className="btn btn-accent w-full mt-4" type="submit" />
+          
+          <button type="submit" className="btn btn-accent w-full mt-4">Register</button>
           <p className="text-center text-sm mt-[6px]">Already have an account?<Link to='/login' className="text-secondary">Login</Link></p>
         </form>
         <div className="divider">OR</div>

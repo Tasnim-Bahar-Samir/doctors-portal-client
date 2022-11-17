@@ -1,9 +1,47 @@
 import { format } from "date-fns";
-import React from "react";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { authProvider } from "../Contexts/Authcontext";
 
-const BookingModal = ({ booking, selected }) => {
+const BookingModal = ({ booking, selected,setBooking,refetch }) => {
     const {name,slots} = booking
   const date = format(selected, "PP");
+  const {user} = useContext(authProvider)
+
+  console.log(booking,slots)
+
+  const handleBooking = (e)=>{
+    e.preventDefault()
+    const form = e.target;
+    const booking = {
+      date,
+      email : user?.email,
+      treatment: name,
+      patient: form.patient.value,
+      slot:form.slot.value,
+      phone: form.phone.value
+    }
+    fetch('http://localhost:5000/bookings',{
+      method:"POST",
+      headers:{
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(booking)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){
+        console.log(data)
+        toast.success('Confirm Booking')
+        setBooking(null)
+      refetch()
+      }else{
+        toast.error(data.message)
+      }
+      
+    })
+    .catch(err => console.log(err))
+  }
   return (
     <div>
       <input type="checkbox" id="booking_modal" className="modal-toggle" />
@@ -16,29 +54,40 @@ const BookingModal = ({ booking, selected }) => {
             ✕
           </label>
           <h3 className="text-lg font-bold">{name}</h3>
-          <form className="grid grid-cols-1 gap-5 mt-11">
+          <form onSubmit={handleBooking} className="grid grid-cols-1 gap-5 mt-11">
             <input
               type="text"
               disabled
               value={date}
               className="input input-bordered w-full"
             />
-            <select className="select select-bordered w-full" required>
-              
+            <select name="slot" className="select select-bordered w-full" required>
+               
               {
-                slots?.map((slot,index) =><option key={index} value={slot}/> )
+                slots?.map((slot,index) =><option key={index}>{slot}</option>)
               }
             </select>
             <input
               type="text"
               name="email"
-              placeholder="Type here"
+              placeholder="Email"
+              defaultValue={user?.email}
               className="input input-bordered w-full"
+              required
             />
             <input
               type="text"
+              name="patient"
+              placeholder="Patient Name"
+              className="input input-bordered w-full"
+              required
+            />
+            <input
+              type="text"
+              name = "phone"
               placeholder="Phone"
               className="input input-bordered w-full"
+              required
             />
             <input
               type="submit"

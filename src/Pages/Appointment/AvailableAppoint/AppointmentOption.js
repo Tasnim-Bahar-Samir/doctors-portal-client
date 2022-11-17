@@ -6,7 +6,6 @@ const AppointmentOption = ({data,setBooking}) => {
   const {name,slots} = data;
   return (
     <div>
-      
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body text-center">
           <h2 className="text-xl text-secondary">{name}</h2>
