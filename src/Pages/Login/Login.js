@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authProvider } from "../../Contexts/Authcontext";
+import useToken from "../../Hooks/useToken";
 
 const Login = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
@@ -9,14 +10,22 @@ const Login = () => {
   const location = useLocation()
   const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate()
+
+  //getting token from custom hook
+  const [userEmail,setUserEmail] = useState("")
+    const userToken = useToken(userEmail)
+    if(userToken){
+      navigate(from,{replace:true})
+    }
   const handleLogin = (data)=>{
     const {email,password} = data;
     userLogin(email,password)
     .then(result => {
       console.log(result.user)
-      navigate(from,{replace:true})
+      setUserEmail(email)
+      // userToken = UseToken(email)
     })
-    .then(err => console.error(err))
+    .catch(err => console.error(err))
     }
   return (
     <div className="flex h-[600px] items-center justify-center ">

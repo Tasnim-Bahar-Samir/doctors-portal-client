@@ -1,9 +1,13 @@
 import {createBrowserRouter} from 'react-router-dom'
+import DashboardLayout from '../Layout/DashboardLayout'
 import Main from '../Layout/Main'
 import Appointment from '../Pages/Appointment/Appointment/Appointment'
+import ProtectedRoute from './ProtectedRoute'
+import MyAppointments from '../Pages/Dashboard/MyAppointments/MyAppointments'
 import Home from '../Pages/Home/Home'
 import Register from '../Pages/Home/Register/Register'
 import Login from '../Pages/Login/Login'
+import AllUsers from '../Pages/Dashboard/AllUsers/AllUsers'
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -24,6 +28,20 @@ export const router = createBrowserRouter([
             {
                 path:'/register',
                 element:<Register/>
+            }
+        ]
+    },
+    {
+        path:'/dashboard',
+        element:<ProtectedRoute><DashboardLayout/></ProtectedRoute>,
+        children: [
+            {
+                path:'/dashboard',
+                element:<MyAppointments/>
+            },
+            {
+                path:'/dashboard/allUsers',
+                element:<AllUsers/>
             }
         ]
     }

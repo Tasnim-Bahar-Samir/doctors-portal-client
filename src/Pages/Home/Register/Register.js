@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { authProvider } from '../../../Contexts/Authcontext';
+import useToken from '../../../Hooks/useToken';
 
 const Register = () => {
   const {createUser,userUpdate}= useContext(authProvider)
@@ -9,6 +10,12 @@ const Register = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.from?.state?.pathname || '/';
+ 
+    const [userEmail,setUserEmail] = useState("")
+    const userToken = useToken(userEmail)
+    if(userToken){
+      navigate(from,{replace:true})
+    }
     const handleRegister = data=>{
         const {name,email,password} = data;
         console.log(email,password,name)
@@ -21,10 +28,40 @@ const Register = () => {
           userUpdate(userInfo)
           .then(() =>{})
           .catch(err => console.error(err))
-          navigate(from,{replace:true})
+          saveUser(name,email)
         } )
         .then(err => console.error(err))
     }
+
+    //sending user data to database
+    const saveUser = (name,email)=>{
+      const user = {name,email}
+      fetch('http://localhost:5000/users',{
+        method:'POST',
+        headers: {
+          'content-type':"application/json"
+        },
+        body : JSON.stringify(user) 
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setUserEmail(email)
+      })
+      .catch(e => console.log(e))
+    }
+
+    //generating token and saving to localstorage
+    // const getToken = (email)=>{
+    //   fetch(`http://localhost:5000/jwt?email=${email}`)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     localStorage.setItem('doc_port_token',data.token)
+    //     navigate(from,{replace:true})
+    //   })
+    //   .catch(err => console.log(err))
+    // }
+
   return (
     <div className="flex h-[600px] items-center justify-center ">
       <div className="w-96 shadow-xl p-6 rounded-xl">
