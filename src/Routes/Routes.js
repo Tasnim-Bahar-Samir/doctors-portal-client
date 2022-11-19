@@ -8,6 +8,8 @@ import Home from '../Pages/Home/Home'
 import Register from '../Pages/Home/Register/Register'
 import Login from '../Pages/Login/Login'
 import AllUsers from '../Pages/Dashboard/AllUsers/AllUsers'
+import AdminRoute from './AdminRoutes'
+import AddDoctor from '../Pages/Dashboard/AddDoctors/AddDoctor'
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -41,8 +43,12 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/allUsers',
-                element:<AllUsers/>
-            }
+                element:<AdminRoute><AllUsers/></AdminRoute>
+            },
+            {
+                path:'/dashboard/addDoctor',
+                element:<AdminRoute><AddDoctor/></AdminRoute>
+            },
         ]
     }
 ])
