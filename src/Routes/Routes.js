@@ -10,6 +10,7 @@ import Login from '../Pages/Login/Login'
 import AllUsers from '../Pages/Dashboard/AllUsers/AllUsers'
 import AdminRoute from './AdminRoutes'
 import AddDoctor from '../Pages/Dashboard/AddDoctors/AddDoctor'
+import ManageDoctors from '../Pages/Dashboard/ManageDoctors/ManageDoctors'
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path:'/dashboard/addDoctor',
                 element:<AdminRoute><AddDoctor/></AdminRoute>
+            },
+            {
+                path:'/dashboard/manageDoctors',
+                element:<AdminRoute><ManageDoctors/></AdminRoute>
             },
         ]
     }
