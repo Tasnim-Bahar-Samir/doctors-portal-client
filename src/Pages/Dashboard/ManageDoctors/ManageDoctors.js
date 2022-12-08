@@ -11,7 +11,7 @@ const ManageDoctors = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["doctors"],
     queryFn: () =>
-      fetch("http://localhost:5000/doctors", {
+      fetch("https://doctors-portal-server-omega-olive.vercel.app/doctors", {
         headers: {
           authorization: localStorage.getItem("doc_port_token"),
         },
@@ -24,7 +24,7 @@ const ManageDoctors = () => {
   }
 
   const handleDelete = (doctor)=>{
-    fetch(`http://localhost:5000/doctors/${doctor._id}`,{
+    fetch(`https://doctors-portal-server-omega-olive.vercel.app/doctors/${doctor._id}`,{
         method:"DELETE",
         headers:{
             authorization : localStorage.getItem('doc_port_token')

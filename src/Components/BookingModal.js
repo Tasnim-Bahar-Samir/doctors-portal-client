@@ -20,7 +20,7 @@ const BookingModal = ({ booking, selected,setBooking,refetch }) => {
       phone: form.phone.value,
       price
     }
-    fetch('http://localhost:5000/bookings',{
+    fetch('https://doctors-portal-server-omega-olive.vercel.app/bookings',{
       method:"POST",
       headers:{
         "content-type": "application/json"

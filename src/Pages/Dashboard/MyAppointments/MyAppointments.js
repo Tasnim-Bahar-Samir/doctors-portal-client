@@ -9,7 +9,7 @@ const MyAppointments = () => {
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookings?email=${user?.email}`,{
+        `https://doctors-portal-server-omega-olive.vercel.app/bookings?email=${user?.email}`,{
           headers: {
             authorization: localStorage.getItem('doc_port_token')
           }

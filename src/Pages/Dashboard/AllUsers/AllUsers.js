@@ -6,13 +6,13 @@ const AllUsers = () => {
     const { data,refetch } = useQuery({
         queryKey: ["users"],
         queryFn: () =>
-          fetch(`http://localhost:5000/users`).then((res) =>
+          fetch(`https://doctors-portal-server-omega-olive.vercel.app/users`).then((res) =>
             res.json()
           ),
       });
 
       const handleAdmin = id =>{
-        fetch(`http://localhost:5000/users/admin/${id}`,{
+        fetch(`https://doctors-portal-server-omega-olive.vercel.app/users/admin/${id}`,{
             method:"PUT",
             headers:{
                 authorization: localStorage.getItem('doc_port_token')

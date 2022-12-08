@@ -36,7 +36,7 @@ const Register = () => {
     //sending user data to database
     const saveUser = (name,email)=>{
       const user = {name,email}
-      fetch('http://localhost:5000/users',{
+      fetch('https://doctors-portal-server-omega-olive.vercel.app/users',{
         method:'POST',
         headers: {
           'content-type':"application/json"
@@ -53,7 +53,7 @@ const Register = () => {
 
     //generating token and saving to localstorage
     // const getToken = (email)=>{
-    //   fetch(`http://localhost:5000/jwt?email=${email}`)
+    //   fetch(`https://doctors-portal-server-omega-olive.vercel.app/jwt?email=${email}`)
     //   .then(res => res.json())
     //   .then(data => {
     //     localStorage.setItem('doc_port_token',data.token)

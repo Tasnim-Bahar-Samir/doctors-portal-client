@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { da } from "date-fns/locale";
 import React, { useEffect, useState } from "react";
 import BookingModal from "../../../Components/BookingModal";
 import AppointmentOption from "./AppointmentOption";
@@ -14,13 +13,13 @@ const AvailableAppoint = ({ selected }) => {
   const { data,refetch } = useQuery({
     queryKey: ["appointmentOptions",date],
     queryFn: () =>
-      fetch(`http://localhost:5000/appointmentOptions?date=${date}`).then((res) =>
+      fetch(`https://doctors-portal-server-omega-olive.vercel.app/appointmentOptions?date=${date}`).then((res) =>
         res.json()
       ),
   });
   console.log(data);
   // useEffect(()=>{
-  //     fetch('http://localhost:5000/appointmentSessions')
+  //     fetch('https://doctors-portal-server-omega-olive.vercel.app/appointmentSessions')
   //     .then(res => res.json())
   //     .then(data => {
   //         setAppointmentOptions(data.data)

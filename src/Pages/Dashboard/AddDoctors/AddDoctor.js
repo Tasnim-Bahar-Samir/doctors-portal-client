@@ -32,7 +32,7 @@ const AddDoctor = () => {
           image: imgData.data.display_url
         }
 
-        fetch('http://localhost:5000/doctors',{
+        fetch('https://doctors-portal-server-omega-olive.vercel.app/doctors',{
           method: "POST",
           headers:{
             "content-type" : "application/json",
@@ -54,7 +54,7 @@ const AddDoctor = () => {
 
   const {data ={},isLoading} = useQuery({
     queryKey : ['appointmentSpeciality'],
-    queryFn: ()=> fetch('http://localhost:5000/appointmentSpeciality').then(res => res.json())
+    queryFn: ()=> fetch('https://doctors-portal-server-omega-olive.vercel.app/appointmentSpeciality').then(res => res.json())
     
   })
   const specialties = data?.data;
