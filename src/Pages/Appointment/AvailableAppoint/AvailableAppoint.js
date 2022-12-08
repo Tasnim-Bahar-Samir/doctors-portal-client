@@ -18,14 +18,6 @@ const AvailableAppoint = ({ selected }) => {
       ),
   });
   console.log(data);
-  // useEffect(()=>{
-  //     fetch('https://doctors-portal-server-omega-olive.vercel.app/appointmentSessions')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //         setAppointmentOptions(data.data)
-  //         console.log(data)
-  //     })
-  // },[])
   return (
     <div className="md:px-5">
       <h5 className="text-secondary text-xl text-center  my-16">

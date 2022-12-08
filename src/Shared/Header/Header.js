@@ -15,10 +15,8 @@ const Header = () => {
   }
     const menuItem = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/about'>About</Link></li>
         <li><Link to='/appointment'>Appointment</Link></li>
-        <li><Link to='/dashboard'>Dashboard</Link></li>
-        <li><Link>Contact Us</Link></li>
+        <li className="mr-4"><Link to='/dashboard'>Dashboard</Link></li>
         {
           user?.uid?
           <Link onClick={handleLogout} className="btn btn-accent text-white">Logout</Link>

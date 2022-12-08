@@ -55,7 +55,7 @@ const ManageDoctors = () => {
             </tr>
           </thead>
           <tbody>
-            {doctors.map((doctor, index) => (
+            {doctors?.map((doctor, index) => (
               <tr key={doctor._id}>
                 <th>{index + 1}</th>
                 <td>

@@ -21,6 +21,9 @@ const MyAppointments = () => {
   });
   const bookings = data?.data;
   console.log(bookings);
+  if(bookings?.length < 1){
+    return <div className="flex h-96 items-center justify-center text-2xl">No Bookings To Show</div>
+  }
   return (
     <div className="mt-5">
       <h2 className="text-2xl font-semibold">My Appointments</h2>
